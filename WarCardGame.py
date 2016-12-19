@@ -28,6 +28,7 @@ def main():
         else:
             #War
             print("WAR!!!!!!!!!!!!!!!!!!")
+            
         print("Player Score: ", playerScore, " - CPU Score: ", cpuScore, "\n")
 
         print("Cards left in deck: ", gameDeck.getCardCount())
@@ -38,20 +39,25 @@ def main():
             print("Finished shuffling cards.")
         
         #Wait for user input for next action
-        while True:
-            playerInput = input("\nPlay Round (P), Print Score (S), Exit Game (X)\n")
-            if playerInput.lower() == "p":
-                break
-            elif playerInput.lower() == "s":
-                print("Player Score: ", playerScore, " - CPU Score: ", cpuScore)
-                continue
-            elif playerInput.lower() == "x":
-                gameRunning = False
-                print("Thanks for playing!")
-                break
-            else:
-                print("Unexpected input, try again!")
-                continue
+        gameRunning = handleInput()
 
+def handleInput():
+    playing = True
+    while True:
+        playerInput = input("\nPlay Round (P), Print Score (S), Exit Game (X)\n")
+        if playerInput.lower() == "p":
+            playing = True
+            break
+        elif playerInput.lower() == "s":
+            print("Player Score: ", playerScore, " - CPU Score: ", cpuScore)
+            continue
+        elif playerInput.lower() == "x":
+            playing = False
+            print("Thanks for playing!")
+            break
+        else:
+            print("Unexpected input, try again!")
+            continue
+    return playing
 
 main()
