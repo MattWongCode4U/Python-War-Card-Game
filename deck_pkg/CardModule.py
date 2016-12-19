@@ -18,7 +18,7 @@ class Card:
             value:  Numeric value of the card.
             suit:   Suit of the card.
         """
-        self.value = value
+        self.value = int(value)
         self.suit = suit
 
     #Get number value of the card
@@ -100,7 +100,11 @@ class CardDeck:
         Returns:
             Card drawn from the deck.
         """
-        return self.deck.pop()
+        if self.getCardCount() > 0:
+            return self.deck.pop()
+        else:
+            print("Deck is empty.")
+            return
 
     #Print the contents of the cards still in the deck
     def printDeck(self):
