@@ -3,45 +3,63 @@ from deck_pkg.CardModule import CardDeck
 def main():
     print("Setting up War Card Game")
     gameDeck = CardDeck()
-    print("Deck obj created")
+    gameDeck.fillDeck()
+    gameDeck.shuffleDeck()
     print("Cards in deck: ", gameDeck.getCardCount())
 
-    print("Beginning War Card Game")
+    pDeck = CardDeck()
+    cpuDeck = CardDeck()
+
+    while gameDeck.getCardCount() > 0:
+        pDeck.addCardToBottom(gameDeck.drawCard())
+        cpuDeck.addCardToBottom(gameDeck.drawCard())
+
+    print("Cards in PLAYER deck: ", pDeck.getCardCount())
+    print("Cards in CPU deck: ", cpuDeck.getCardCount())
+    
+    print("\nBeginning War Card Game\n")
 
     gameRunning = True
-    playerScore = 0
-    cpuScore = 0
 
     while gameRunning:
         print("\nDrawing cards...")
-        pCard = gameDeck.drawCard()
+        pCard = pDeck.drawCard()
         print("Your card: ", pCard.getValue(), pCard.getSuit())
-        cpuCard = gameDeck.drawCard()
+        cpuCard = cpuDeck.drawCard()
         print("CPU's card: ", cpuCard.getValue(), cpuCard.getSuit())
 
+        #Compare card values
         if pCard.getValue() > cpuCard.getValue():
-            playerScore += 1
+            #player won
+            pDeck.addCardToBottom(pCard)
+            pDeck.addCardToBottom(cpuCard)
             print("You win the round.")
         elif pCard.getValue() < cpuCard.getValue():
-            cpuScore += 1
+            #cpu won
+            cpuDeck.addCardToBottom(pCard)
+            cpuDeck.addCardToBottom(cpuCard)
             print("You lose the round.")
         else:
             #War
             print("WAR!!!!!!!!!!!!!!!!!!")
             
-        print("Player Score: ", playerScore, " - CPU Score: ", cpuScore, "\n")
+        print("Player Deck: ", pDeck.getCardCount(), " - CPU Deck: ", cpuDeck.getCardCount(), "\n")
 
-        print("Cards left in deck: ", gameDeck.getCardCount())
-        if(gameDeck.getCardCount() == 0):
-            print("Shuffling cards back into the deck.")
-            gameDeck.fillDeck()
-            gameDeck.shuffleDeck()
-            print("Finished shuffling cards.")
-        
+        #Check game win / lose condition
+        if(pDeck.getCardCount() == 0):
+            print("You lose the game")
+            gameRunning = False
+        elif(cpuDeck.getCardCount() == 0):
+            print("You win the game")
+            gameRunning = False
+        else:
+            gameRunning = True
+                
         #Wait for user input for next action
-        gameRunning = handleInput()
+        if(gameRunning):
+            gameRunning = handleInput(pDeck, cpuDeck)
 
-def handleInput():
+def handleInput(playerDeck, computerDeck):
     playing = True
     while True:
         playerInput = input("\nPlay Round (P), Print Score (S), Exit Game (X)\n")
@@ -49,7 +67,7 @@ def handleInput():
             playing = True
             break
         elif playerInput.lower() == "s":
-            print("Player Score: ", playerScore, " - CPU Score: ", cpuScore)
+            print("Player Deck: ", playerDeck.getCardCount(), " - CPU Deck: ", computerDeck.getCardCount())
             continue
         elif playerInput.lower() == "x":
             playing = False

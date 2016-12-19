@@ -60,8 +60,6 @@ class CardDeck:
         CardDeck initializer.
         """
         self.deck = []
-        self.fillDeck()
-        self.shuffleDeck()
         
     #Fill deck with cards
     def fillDeck(self):
@@ -105,6 +103,14 @@ class CardDeck:
         else:
             print("Deck is empty.")
             return
+
+    #Add a card to the bottom of the deck
+    def addCardToBottom(self, card):
+        self.deck.append(card)
+
+    #Add a card to the top of the deck
+    def addCardToTop(self, card):
+        self.deck.insert(0, card)
 
     #Print the contents of the cards still in the deck
     def printDeck(self):
