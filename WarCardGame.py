@@ -42,6 +42,42 @@ def main():
         else:
             #War
             print("WAR!!!!!!!!!!!!!!!!!!")
+            war = True
+            ptemplist = []
+            cputemplist = []
+            ptemplist.append(pCard)
+            cputemplist.append(cpuCard)
+            while war:
+                if pDeck.getCardCount() <= 1:
+                    print("Player doesn't have enough cards for War, you Lose!")
+                    war = False  
+                elif cpuDeck.getCardCount() <= 1:
+                    print("CPU doesn't have enough cards for War, you Win!")
+                else:
+                    ptemplist.append(pDeck.drawCard())
+                    cputemplist.append(cpuDeck.drawCard())
+
+                    pwar = pDeck.drawCard()
+                    cpuwar = cpuDeck.drawCard()
+                    ptemplist.append(pwar)
+                    cputemplist.append(cpuwar)
+                    
+                    if pwar.getValue() > cpuwar.getValue():
+                        #player wins war
+                        print("You win the War!")
+                        pDeck.deck.extend(ptemplist)
+                        pDeck.deck.extend(cputemplist)
+                        war = False
+                    elif pwar.getValue() < cpuwar.getValue():
+                        #cpu wins war
+                        print("You lose the War!")
+                        cpuDeck.deck.extend(ptemplist)
+                        cpuDeck.deck.extend(cputemplist)
+                        war = False
+                    else:
+                        #war is tied, repeat
+                        print("War continuing!")
+                        war = True
             
         print("Player Deck: ", pDeck.getCardCount(), " - CPU Deck: ", cpuDeck.getCardCount(), "\n")
 
