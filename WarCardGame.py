@@ -29,12 +29,12 @@ def main():
         print("CPU's card: ", cpuCard.getValue(), cpuCard.getSuit())
 
         #Compare card values
-        if pCard.getValue() > cpuCard.getValue():
+        if pCard.getRawValue() > cpuCard.getRawValue():
             #player won
             pDeck.addCardToBottom(pCard)
             pDeck.addCardToBottom(cpuCard)
             print("You win the round.")
-        elif pCard.getValue() < cpuCard.getValue():
+        elif pCard.getRawValue() < cpuCard.getRawValue():
             #cpu won
             cpuDeck.addCardToBottom(pCard)
             cpuDeck.addCardToBottom(cpuCard)
@@ -62,13 +62,13 @@ def main():
                     ptemplist.append(pwar)
                     cputemplist.append(cpuwar)
                     
-                    if pwar.getValue() > cpuwar.getValue():
+                    if pwar.getRawValue() > cpuwar.getRawValue():
                         #player wins war
                         print("You win the War!")
                         pDeck.deck.extend(ptemplist)
                         pDeck.deck.extend(cputemplist)
                         war = False
-                    elif pwar.getValue() < cpuwar.getValue():
+                    elif pwar.getRawValue() < cpuwar.getRawValue():
                         #cpu wins war
                         print("You lose the War!")
                         cpuDeck.deck.extend(ptemplist)

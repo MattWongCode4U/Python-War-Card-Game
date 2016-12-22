@@ -21,8 +21,27 @@ class Card:
         self.value = int(value)
         self.suit = suit
 
-    #Get number value of the card
+    #Get value of the card
     def getValue(self):
+        """
+        Get value of the card.
+
+        Returns:
+            Value of the card.
+        """
+        if self.value == 1:
+            return "A"
+        if self.value == 11:
+            return "J"
+        elif self.value == 12:
+            return "Q"
+        elif self.value == 13:
+            return "K"
+        else:
+            return self.value
+
+    #Get number value of the card
+    def getRawValue(self):
         """
         Get number value of the card.
 
